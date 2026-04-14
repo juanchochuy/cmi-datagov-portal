@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMI Alimentos — Portal de Capacitación en Gobierno del Dato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cmi-orange:#e8611a;
+  --cmi-orange-dark:#c44f10;
+  --cmi-orange-light:#fdf0e8;
+  --cmi-orange-mid:#f0855a;
+  --cmi-black:#1a1a1a;
+  --cmi-nav:#222222;
+  --cmi-nav-hover:#333333;
+  --slate:#374151;
+  --slate2:#4b5563;
+  --slate3:#6b7280;
+  --slate4:#9ca3af;
+  --border:#e5e7eb;
+  --border2:#d1d5db;
+  --bg:#f9fafb;
+  --bg2:#f3f4f6;
+  --white:#ffffff;
+  --green:#15803d;
+  --green-bg:#f0fdf4;
+  --blue:#1d4ed8;
+  --blue-bg:#eff6ff;
+  --text-on-dark:#ffffff;
+  --text-on-dark2:rgba(255,255,255,0.72);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate);font-size:14px;line-height:1.5;min-width:1024px;}
+
+/* NAV */
+.topnav{
+  background:var(--cmi-nav);
+  padding:0 40px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.nav-left{display:flex;align-items:center;gap:32px;}
+.cmi-logo-wrap{display:flex;align-items:center;gap:0;cursor:pointer;}
+.cmi-logo-svg{width:100px;height:34px;}
+.nav-sep-line{width:1px;height:24px;background:rgba(255,255,255,0.15);}
+.nav-links{display:flex;align-items:center;gap:2px;}
+.nav-link{
+  color:var(--text-on-dark2);font-size:12px;font-weight:500;
+  padding:8px 12px;border-radius:4px;cursor:pointer;
+  letter-spacing:0.3px;white-space:nowrap;transition:background 0.15s,color 0.15s;
+}
+.nav-link:hover{color:var(--text-on-dark);background:var(--cmi-nav-hover);}
+.nav-link.active{color:var(--text-on-dark);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.portal-chip{
+  background:var(--cmi-orange);color:#fff;
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:3px;
+  letter-spacing:0.5px;text-transform:uppercase;
+}
+.user-area{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.user-av{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--cmi-orange);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;
+}
+.user-name{font-size:12px;color:var(--text-on-dark2);}
+
+/* SUBNAV */
+.subnav{
+  background:var(--white);border-bottom:2px solid var(--border);
+  padding:0 40px;display:flex;align-items:center;gap:2px;
+  position:sticky;top:60px;z-index:99;
+}
+.snav{
+  padding:14px 16px;font-size:13px;font-weight:500;
+  color:var(--slate3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;
+  transition:color 0.15s,border-color 0.15s;
+}
+.snav.active{color:var(--cmi-orange);border-bottom-color:var(--cmi-orange);}
+.snav:hover:not(.active){color:var(--slate);}
+
+/* HERO */
+.hero{
+  background:var(--cmi-black);
+  padding:56px 40px 52px;
+  position:relative;overflow:hidden;
+}
+.hero-stripe{
+  position:absolute;right:0;top:0;width:420px;height:100%;
+  background:var(--cmi-orange);opacity:0.06;
+  clip-path:polygon(18% 0,100% 0,100% 100%,0% 100%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:40px;}
+.hero-text{flex:1;max-width:580px;}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--cmi-orange);margin-bottom:16px;
+}
+.hero-eyebrow::before{content:'';width:20px;height:2px;background:var(--cmi-orange);border-radius:1px;}
+.hero-h1{
+  font-family:'Inter Tight',sans-serif;
+  font-size:42px;font-weight:700;line-height:1.1;
+  color:var(--text-on-dark);letter-spacing:-1px;margin-bottom:16px;
+}
+.hero-h1 span{color:var(--cmi-orange);}
+.hero-p{font-size:15px;color:var(--text-on-dark2);line-height:1.7;margin-bottom:28px;max-width:480px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-orange{
+  background:var(--cmi-orange);color:#fff;border:none;
+  padding:11px 24px;border-radius:4px;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:0.2px;
+  transition:background 0.15s;
+}
+.btn-orange:hover{background:var(--cmi-orange-dark);}
+.btn-ghost{
+  background:transparent;color:var(--text-on-dark);
+  border:1px solid rgba(255,255,255,0.3);
+  padding:11px 24px;border-radius:4px;font-size:13px;font-weight:500;
+  cursor:pointer;font-family:'Inter',sans-serif;
+  transition:border-color 0.15s,background 0.15s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.5);}
+.hero-stats{display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
+.hstat{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-left:3px solid var(--cmi-orange);
+  border-radius:4px;padding:14px 20px;text-align:right;min-width:160px;
+}
+.hstat-num{font-size:26px;font-weight:700;color:var(--cmi-orange);line-height:1;}
+.hstat-lbl{font-size:11px;color:var(--text-on-dark2);margin-top:3px;letter-spacing:0.3px;}
+
+/* BREADCRUMB */
+.breadcrumb-bar{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:8px 40px;display:flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--slate3);
+}
+.bc-sep{color:var(--slate4);}
+.bc-active{color:var(--cmi-orange);font-weight:500;}
+
+/* SECTIONS */
+.section{padding:32px 40px;}
+.section.alt{background:var(--bg2);}
+.sec-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px;}
+.sec-title{font-size:16px;font-weight:700;color:var(--cmi-black);display:flex;align-items:center;gap:8px;}
+.sec-title::before{content:'';width:3px;height:16px;background:var(--cmi-orange);border-radius:2px;display:inline-block;flex-shrink:0;}
+.sec-link{font-size:12px;color:var(--cmi-orange);cursor:pointer;font-weight:500;text-decoration:none;}
+.sec-link:hover{text-decoration:underline;}
+
+/* PROGRESS */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;}
+.prog-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:18px;}
+.prog-icon{font-size:20px;margin-bottom:10px;}
+.prog-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;gap:8px;}
+.prog-title{font-size:13px;font-weight:600;color:var(--cmi-black);}
+.badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:0.3px;white-space:nowrap;}
+.badge-done{background:var(--green-bg);color:var(--green);}
+.badge-active{background:#fff7ed;color:var(--cmi-orange-dark);}
+.badge-pending{background:var(--bg2);color:var(--slate3);}
+.prog-sub{font-size:11px;color:var(--slate3);margin-bottom:10px;}
+.prog-track{height:3px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;border-radius:2px;transition:width 0.6s ease;}
+.pf-done{background:var(--green);}
+.pf-active{background:var(--cmi-orange);}
+.prog-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--slate4);font-weight:500;}
+
+/* MÓDULOS */
+.mod-list{display:flex;flex-direction:column;gap:8px;}
+.mod-row{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;
+  transition:border-color 0.15s,background 0.15s;
+}
+.mod-row:hover{border-color:var(--cmi-orange);background:#fffaf7;}
+.mod-row.current{border-left:3px solid var(--cmi-orange);background:#fffaf7;}
+.mod-num{font-size:11px;color:var(--slate4);font-weight:600;min-width:24px;letter-spacing:0.5px;}
+.mod-status{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.ms-done{background:var(--green);}
+.ms-active{background:var(--cmi-orange);}
+.ms-lock{background:#d1d5db;}
+.mod-body{flex:1;}
+.mod-title{font-size:13px;font-weight:600;color:var(--cmi-black);margin-bottom:3px;}
+.mod-sub{font-size:11px;color:var(--slate3);}
+.mod-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
+.mtag{font-size:10px;padding:2px 7px;border-radius:3px;background:var(--bg2);color:var(--slate2);border:0.5px solid var(--border2);font-weight:500;}
+.mtag-o{background:#fff7ed;color:var(--cmi-orange-dark);border-color:#fcd9bb;}
+.mod-end{text-align:right;min-width:90px;flex-shrink:0;}
+.mod-dur{font-size:11px;color:var(--slate4);margin-bottom:4px;font-weight:500;}
+
+/* RUTAS */
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;}
+.role-card{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:18px 14px;border-top:3px solid;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.role-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.08);}
+.rc1{border-top-color:var(--cmi-orange);}
+.rc2{border-top-color:#16a34a;}
+.rc3{border-top-color:#2563eb;}
+.rc4{border-top-color:#7c3aed;}
+.rc5{border-top-color:#b45309;}
+.r-icon{font-size:20px;margin-bottom:10px;}
+.r-title{font-size:13px;font-weight:700;color:var(--cmi-black);margin-bottom:5px;}
+.r-desc{font-size:11px;color:var(--slate3);line-height:1.6;margin-bottom:10px;}
+.r-meta{font-size:10px;color:var(--slate4);font-weight:500;}
+.r-btn{
+  margin-top:12px;width:100%;padding:7px;background:transparent;
+  border:1px solid var(--border);border-radius:4px;font-size:12px;font-weight:500;
+  color:var(--slate);cursor:pointer;font-family:'Inter',sans-serif;
+  transition:border-color 0.15s,color 0.15s;
+}
+.r-btn:hover{border-color:var(--cmi-orange);color:var(--cmi-orange);}
+
+/* 2 COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);}
+.col-p{padding:32px 40px;}
+.col-p:first-child{border-right:1px solid var(--border);}
+
+/* ESCENARIOS */
+.stabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.stab{
+  padding:6px 13px;border-radius:4px;font-size:12px;font-weight:500;
+  border:1px solid var(--border);background:transparent;color:var(--slate3);
+  cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;
+}
+.stab:hover:not(.active){border-color:var(--border2);color:var(--slate);}
+.stab.active{background:#fff7ed;border-color:#fcd9bb;color:var(--cmi-orange-dark);}
+.sc-card{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:20px;border-left:3px solid var(--cmi-orange);
+}
+.sc-plat{
+  display:inline-block;background:#fff7ed;color:var(--cmi-orange-dark);
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;
+  margin-bottom:8px;letter-spacing:0.3px;
+}
+.sc-title{font-size:14px;font-weight:700;color:var(--cmi-black);margin-bottom:6px;}
+.sc-desc{font-size:12px;color:var(--slate3);line-height:1.65;margin-bottom:14px;}
+.sc-steps{display:flex;flex-direction:column;gap:8px;}
+.sc-step{display:flex;align-items:flex-start;gap:9px;font-size:12px;color:var(--slate);}
+.step-num{
+  width:18px;height:18px;border-radius:50%;
+  background:#fff7ed;border:1px solid #fcd9bb;
+  color:var(--cmi-orange-dark);font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+
+/* ANUNCIOS */
+.annc-list{display:flex;flex-direction:column;gap:8px;}
+.annc{
+  background:var(--white);border:1px solid var(--border);border-radius:6px;
+  padding:14px 16px;display:flex;gap:12px;
+  transition:border-color 0.15s;
+}
+.annc:hover{border-color:var(--border2);}
+.annc-ico{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.ai-o{background:#fff7ed;}
+.ai-b{background:var(--blue-bg);}
+.ai-g{background:var(--green-bg);}
+.annc-title{font-size:13px;font-weight:600;color:var(--cmi-black);margin-bottom:3px;}
+.annc-sub{font-size:11px;color:var(--slate3);line-height:1.5;}
+.annc-date{font-size:10px;color:var(--slate4);font-weight:500;margin-top:5px;}
+
+/* PLATAFORMAS */
+.plat-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.plat-chip{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;
+  border:1px solid var(--border);border-radius:4px;background:var(--white);
+  font-size:12px;font-weight:500;transition:border-color 0.15s;
+}
+.plat-chip:hover{border-color:var(--border2);}
+.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* FOOTER */
+.footer{
+  background:var(--cmi-black);color:rgba(255,255,255,0.5);
+  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;
+}
+.footer-l{font-size:11px;line-height:1.7;}
+.footer-r{display:flex;align-items:center;gap:16px;}
+.footer-r a{font-size:11px;color:rgba(255,255,255,0.4);text-decoration:none;cursor:pointer;}
+.footer-r a:hover{color:rgba(255,255,255,0.7);}
+.uso-interno{
+  background:var(--cmi-orange);color:#fff;font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:3px;letter-spacing:0.8px;
+}
+.divider{height:1px;background:var(--border);}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="nav-left">
+    <div class="cmi-logo-wrap">
+      <svg class="cmi-logo-svg" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(0,4)">
+          <polygon points="12,26 20,12 28,26" fill="#e8611a"/>
+          <polygon points="16,26 22,15 28,26" fill="#c44f10" opacity="0.45"/>
+          <line x1="12" y1="26" x2="28" y2="26" stroke="#e8611a" stroke-width="2.5"/>
+        </g>
+        <text x="36" y="28" font-family="'Inter Tight','Inter',sans-serif" font-weight="700" font-size="22" fill="#ffffff" letter-spacing="-0.5">cmi</text>
+      </svg>
+    </div>
+    <div class="nav-sep-line"></div>
+    <div class="nav-links">
+      <div class="nav-link active">Inicio</div>
+      <div class="nav-link">Mi ruta</div>
+      <div class="nav-link">Módulos</div>
+      <div class="nav-link">Simuladores</div>
+      <div class="nav-link">Certificaciones</div>
+      <div class="nav-link">Equipo</div>
+      <div class="nav-link">Recursos</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="portal-chip">Uso Interno</div>
+    <div class="user-area">
+      <div class="user-av">JC</div>
+      <div class="user-name">Juan Chuy · Gerencia Datos &amp; MDM</div>
+    </div>
+  </div>
+</nav>
+
+<!-- SUBNAV -->
+<div class="subnav">
+  <div class="snav active">Inicio</div>
+  <div class="snav">Mi ruta de aprendizaje</div>
+  <div class="snav">Módulos</div>
+  <div class="snav">Simuladores</div>
+  <div class="snav">Certificaciones internas</div>
+  <div class="snav">Equipo</div>
+  <div class="snav">Recursos</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-stripe"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Portal de Capacitación Interna · CMI Alimentos</div>
+      <h1 class="hero-h1">Aprende Data Governance<br>en entornos <span>reales CMI</span></h1>
+      <p class="hero-p">Desarrolla competencias prácticas con simuladores basados en el ecosistema tecnológico de CMI: Microsoft Fabric, Purview, Databricks, Power BI, TIBCO EBX y más. Formación alineada al framework DAMA-DMBOK.</p>
+      <div class="hero-btns">
+        <button class="btn-orange">Continuar mi ruta de aprendizaje</button>
+        <button class="btn-ghost">Ver todos los módulos →</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">7</div><div class="hstat-lbl">Módulos especializados</div></div>
+      <div class="hstat"><div class="hstat-num">40+</div><div class="hstat-lbl">Escenarios de práctica</div></div>
+      <div class="hstat"><div class="hstat-num">5</div><div class="hstat-lbl">Rutas por rol</div></div>
+      <div class="hstat"><div class="hstat-num">9</div><div class="hstat-lbl">Plataformas simuladas</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <span>CMI Alimentos</span>
+  <span class="bc-sep">›</span>
+  <span>Gerencia Datos &amp; MDM</span>
+  <span class="bc-sep">›</span>
+  <span class="bc-active">Portal de Capacitación en Gobierno del Dato</span>
+</div>
+
+<!-- MI PROGRESO -->
+<div class="section alt">
+  <div class="sec-hdr">
+    <div class="sec-title">Mi progreso actual</div>
+    <a class="sec-link">Ver historial completo</a>
+  </div>
+  <div class="prog-grid">
+    <div class="prog-card">
+      <div class="prog-icon">🎯</div>
+      <div class="prog-top">
+        <div class="prog-title">Introducción a Data Governance</div>
+        <span class="badge badge-done">Completado</span>
+      </div>
+      <div class="prog-sub">Fundamentos DAMA · Roles · Frameworks</div>
+      <div class="prog-track"><div class="prog-fill pf-done" style="width:100%"></div></div>
+      <div class="prog-meta"><span>100%</span><span>4h completadas</span></div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">✅</div>
+      <div class="prog-top">
+        <div class="prog-title">Calidad del Dato</div>
+        <span class="badge badge-active">En curso</span>
+      </div>
+      <div class="prog-sub">Dimensiones DQ · Profiling · Fabric</div>
+      <div class="prog-track"><div class="prog-fill pf-active" style="width:65%"></div></div>
+      <div class="prog-meta"><span>65%</span><span>3.9h de 6h</span></div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🔗</div>
+      <div class="prog-top">
+        <div class="prog-title">Linaje del Dato</div>
+        <span class="badge badge-pending">Pendiente</span>
+      </div>
+      <div class="prog-sub">Purview · Unity Catalog · OpenLineage</div>
+      <div class="prog-track"><div class="prog-fill" style="width:0%;background:#d1d5db"></div></div>
+      <div class="prog-meta"><span>0%</span><span>5h estimadas</span></div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-icon">🧩</div>
+      <div class="prog-top">
+        <div class="prog-title">Datos Maestros — MDM</div>
+        <span class="badge badge-pending">Pendiente</span>
+      </div>
+      <div class="prog-sub">TIBCO EBX · SAP · Golden Records</div>
+      <div class="prog-track"><div class="prog-fill" style="width:0%;background:#d1d5db"></div></div>
+      <div class="prog-meta"><span>0%</span><span>7h estimadas</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MÓDULOS -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-title">Plan de estudios — 7 módulos</div>
+    <a class="sec-link">Filtrar por nivel</a>
+  </div>
+  <div class="mod-list">
+    <div class="mod-row">
+      <div class="mod-num">00</div>
+      <div class="mod-status ms-done"></div>
+      <div class="mod-body">
+        <div class="mod-title">Introducción a Data Governance</div>
+        <div class="mod-sub">Fundamentos DAMA · Roles y responsabilidades · Frameworks de madurez · Estrategia corporativa CMI</div>
+        <div class="mod-tags"><span class="mtag mtag-o">DAMA-DMBOK</span><span class="mtag">CDO Office</span><span class="mtag">Madurez</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">4h · Básico</div><span class="badge badge-done">Completado</span></div>
+    </div>
+    <div class="mod-row current">
+      <div class="mod-num">01</div>
+      <div class="mod-status ms-active"></div>
+      <div class="mod-body">
+        <div class="mod-title">Calidad del Dato</div>
+        <div class="mod-sub">Dimensiones DQ · Reglas de validación · Perfilado en Fabric · Score de confianza · Alertas operativas</div>
+        <div class="mod-tags"><span class="mtag mtag-o">Fabric DQ</span><span class="mtag mtag-o">Databricks</span><span class="mtag">Profiling</span><span class="mtag">Purview</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">6h · Intermedio</div><span class="badge badge-active">En curso</span></div>
+    </div>
+    <div class="mod-row">
+      <div class="mod-num">02</div>
+      <div class="mod-status ms-lock"></div>
+      <div class="mod-body">
+        <div class="mod-title">Linaje del Dato</div>
+        <div class="mod-sub">Linaje técnico y de negocio · Microsoft Purview · Databricks Unity Catalog · OpenLineage</div>
+        <div class="mod-tags"><span class="mtag">Purview</span><span class="mtag">Unity Catalog</span><span class="mtag">OpenLineage</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">5h · Intermedio</div><span class="badge badge-pending">Próximo</span></div>
+    </div>
+    <div class="mod-row">
+      <div class="mod-num">03</div>
+      <div class="mod-status ms-lock"></div>
+      <div class="mod-body">
+        <div class="mod-title">Contratos de Datos</div>
+        <div class="mod-sub">Data Contract specs · SLA/SLO de datos · Versionado de esquemas · Integración APIs CMI</div>
+        <div class="mod-tags"><span class="mtag">Data Contract</span><span class="mtag">Schema Registry</span><span class="mtag">API Gov</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">5h · Avanzado</div><span class="badge badge-pending">Bloqueado</span></div>
+    </div>
+    <div class="mod-row">
+      <div class="mod-num">04</div>
+      <div class="mod-status ms-lock"></div>
+      <div class="mod-body">
+        <div class="mod-title">Catálogo de Datos</div>
+        <div class="mod-sub">Metadatos activos · Taxonomías CMI · Microsoft Purview · Glosario de negocio corporativo</div>
+        <div class="mod-tags"><span class="mtag">Purview</span><span class="mtag">Glosario</span><span class="mtag">Taxonomía</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">5h · Intermedio</div><span class="badge badge-pending">Bloqueado</span></div>
+    </div>
+    <div class="mod-row">
+      <div class="mod-num">05</div>
+      <div class="mod-status ms-lock"></div>
+      <div class="mod-body">
+        <div class="mod-title">Datos Maestros — MDM</div>
+        <div class="mod-sub">Gobierno de entidades · TIBCO EBX · Integración SAP / COUPA · Golden records y deduplicación</div>
+        <div class="mod-tags"><span class="mtag mtag-o">TIBCO EBX</span><span class="mtag mtag-o">SAP</span><span class="mtag">COUPA</span><span class="mtag">Matching</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">7h · Avanzado</div><span class="badge badge-pending">Bloqueado</span></div>
+    </div>
+    <div class="mod-row">
+      <div class="mod-num">06</div>
+      <div class="mod-status ms-lock"></div>
+      <div class="mod-body">
+        <div class="mod-title">Privacidad y Seguridad del Dato</div>
+        <div class="mod-sub">Clasificación y etiquetado · Row/Column-level security · Enmascaramiento · Cumplimiento normativo</div>
+        <div class="mod-tags"><span class="mtag">Purview Labels</span><span class="mtag">RBAC</span><span class="mtag">LGPD</span><span class="mtag">Fabric RLS</span></div>
+      </div>
+      <div class="mod-end"><div class="mod-dur">6h · Avanzado</div><span class="badge badge-pending">Bloqueado</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- RUTAS POR ROL -->
+<div class="section alt">
+  <div class="sec-hdr">
+    <div class="sec-title">Rutas de aprendizaje por rol</div>
+    <a class="sec-link">Ver todas las rutas</a>
+  </div>
+  <div class="roles-grid">
+    <div class="role-card rc1">
+      <div class="r-icon">🛡️</div>
+      <div class="r-title">Data Steward</div>
+      <div class="r-desc">Calidad, linaje, catálogo y políticas de gobierno operativo sobre dominios de CMI.</div>
+      <div class="r-meta">7 módulos · 24h · 4 participantes</div>
+      <button class="r-btn">Ver ruta →</button>
+    </div>
+    <div class="role-card rc2">
+      <div class="r-icon">📐</div>
+      <div class="r-title">Data Architect</div>
+      <div class="r-desc">Contratos, arquitecturas de lago, Data Mesh y patrones de integración en CMI.</div>
+      <div class="r-meta">6 módulos · 20h · 2 participantes</div>
+      <button class="r-btn">Ver ruta →</button>
+    </div>
+    <div class="role-card rc3">
+      <div class="r-icon">⚙️</div>
+      <div class="r-title">Data Engineer</div>
+      <div class="r-desc">Pipelines gobernados, linaje automatizado y calidad en runtime Fabric/Databricks.</div>
+      <div class="r-meta">5 módulos · 18h · 5 participantes</div>
+      <button class="r-btn">Ver ruta →</button>
+    </div>
+    <div class="role-card rc4">
+      <div class="r-icon">📊</div>
+      <div class="r-title">Data Analyst / BI</div>
+      <div class="r-desc">Catálogo, confianza en datos, semántica BI y privacidad en Power BI / Analysis Services.</div>
+      <div class="r-meta">5 módulos · 16h · 8 participantes</div>
+      <button class="r-btn">Ver ruta →</button>
+    </div>
+    <div class="role-card rc5">
+      <div class="r-icon">🏛️</div>
+      <div class="r-title">CDO / Gerencia</div>
+      <div class="r-desc">Estrategia, comités, métricas DAMA y gobierno ejecutivo del dato en CMI.</div>
+      <div class="r-meta">4 módulos · 12h · 3 participantes</div>
+      <button class="r-btn">Ver ruta →</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ESCENARIOS + ANUNCIOS -->
+<div class="two-col">
+  <div class="col-p">
+    <div class="sec-hdr">
+      <div class="sec-title">Simuladores de escenarios</div>
+      <a class="sec-link">Ver todos</a>
+    </div>
+    <div class="stabs">
+      <button class="stab active" onclick="showSc(0,this)">Calidad Lakehouse</button>
+      <button class="stab" onclick="showSc(1,this)">Privacidad Fabric</button>
+      <button class="stab" onclick="showSc(2,this)">MDM en SAP</button>
+      <button class="stab" onclick="showSc(3,this)">Contrato roto</button>
+    </div>
+    <div id="sc" class="sc-card">
+      <div class="sc-plat" id="sc-plat">Databricks · Fabric · Purview</div>
+      <div class="sc-title" id="sc-title">Incidente de calidad en Databricks Lakehouse</div>
+      <div class="sc-desc" id="sc-desc">Un pipeline de ventas presenta registros duplicados y nulos en campos de revenue. El equipo de BI reporta inconsistencias en Power BI. Diagnostica, contén y remedia el incidente aplicando controles de gobierno CMI.</div>
+      <div class="sc-steps" id="sc-steps">
+        <div class="sc-step"><div class="step-num">1</div><span>Perfila la tabla con Databricks Data Quality Monitor</span></div>
+        <div class="sc-step"><div class="step-num">2</div><span>Identifica la regla fallida y su upstream en el linaje</span></div>
+        <div class="sc-step"><div class="step-num">3</div><span>Activa cuarentena del dataset en Unity Catalog</span></div>
+        <div class="sc-step"><div class="step-num">4</div><span>Documenta el incidente en el catálogo Purview</span></div>
+        <div class="sc-step"><div class="step-num">5</div><span>Propón el contrato de datos corregido al productor</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-p">
+    <div class="sec-hdr">
+      <div class="sec-title">Anuncios del portal</div>
+      <a class="sec-link">Ver todos</a>
+    </div>
+    <div class="annc-list">
+      <div class="annc">
+        <div class="annc-ico ai-o">📌</div>
+        <div>
+          <div class="annc-title">Nuevo módulo MDM disponible</div>
+          <div class="annc-sub">El módulo incluye escenarios reales del Programa MDM Materiales de CMI con TIBCO EBX y SAP.</div>
+          <div class="annc-date">14 ABR 2025</div>
+        </div>
+      </div>
+      <div class="annc">
+        <div class="annc-ico ai-b">🎓</div>
+        <div>
+          <div class="annc-title">Certificación DAMA-aligned Q2</div>
+          <div class="annc-sub">Convocatoria para evaluación interna. Inscripciones abiertas hasta el 30 de abril.</div>
+          <div class="annc-date">10 ABR 2025</div>
+        </div>
+      </div>
+      <div class="annc">
+        <div class="annc-ico ai-g">📅</div>
+        <div>
+          <div class="annc-title">Workshop Purview + Unity Catalog</div>
+          <div class="annc-sub">Sesión virtual del módulo de Linaje. Jueves 17 abr, 10:00 GT. Equipo de Arquitectura.</div>
+          <div class="annc-date">08 ABR 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PLATAFORMAS -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-title">Plataformas del ecosistema CMI</div>
+  </div>
+  <div style="font-size:12px;color:var(--slate3);margin-top:-10px;margin-bottom:0;">Entornos reales de práctica alineados al stack de Gerencia Datos &amp; MDM</div>
+  <div class="plat-grid">
+    <div class="plat-chip"><span class="pdot" style="background:#0078d4"></span>Azure Data Lake Gen2</div>
+    <div class="plat-chip"><span class="pdot" style="background:#742774"></span>Microsoft Fabric</div>
+    <div class="plat-chip"><span class="pdot" style="background:#0078d4"></span>Microsoft Purview</div>
+    <div class="plat-chip"><span class="pdot" style="background:#ff6a00"></span>Databricks Lakehouse</div>
+    <div class="plat-chip"><span class="pdot" style="background:#f2c811"></span>Power BI / Analysis Services</div>
+    <div class="plat-chip"><span class="pdot" style="background:#4285f4"></span>BigQuery (GCP)</div>
+    <div class="plat-chip"><span class="pdot" style="background:#10b981"></span>TIBCO EBX — MDM</div>
+    <div class="plat-chip"><span class="pdot" style="background:#0050b3"></span>SAP / COUPA</div>
+    <div class="plat-chip"><span class="pdot" style="background:#7c3aed"></span>MLOps / IA Responsable</div>
+    <div class="plat-chip"><span class="pdot" style="background:#0078d4"></span>Synapse Analytics</div>
+    <div class="plat-chip"><span class="pdot" style="background:#e8611a"></span>Alteryx · dbt</div>
+    <div class="plat-chip"><span class="pdot" style="background:#374151"></span>Data Mesh / Data Contracts</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-l">
+    <div style="margin-bottom:5px;">
+      <svg viewBox="0 0 90 28" width="72" height="22" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(0,2)">
+          <polygon points="8,20 14,9 20,20" fill="#e8611a"/>
+          <line x1="8" y1="20" x2="20" y2="20" stroke="#e8611a" stroke-width="2"/>
+        </g>
+        <text x="26" y="20" font-family="'Inter Tight','Inter',sans-serif" font-weight="700" font-size="16" fill="rgba(255,255,255,0.65)">cmi</text>
+      </svg>
+    </div>
+    © 2025 CMI Alimentos · Gerencia de Gestión de Datos &amp; MDM<br>
+    Plataforma de uso interno exclusivo · Todos los derechos reservados
+  </div>
+  <div class="footer-r">
+    <a>Soporte TI</a>
+    <a>Guía de uso</a>
+    <a>Política de datos</a>
+    <span class="uso-interno">USO INTERNO</span>
+  </div>
+</footer>
+
+<script>
+const scs=[
+  {p:"Databricks · Fabric · Purview",t:"Incidente de calidad en Databricks Lakehouse",d:"Un pipeline de ventas presenta registros duplicados y nulos en campos de revenue. El equipo de BI reporta inconsistencias en Power BI. Diagnostica, contén y remedia el incidente aplicando controles de gobierno CMI.",s:["Perfila la tabla con Databricks Data Quality Monitor","Identifica la regla fallida y su upstream en el linaje","Activa cuarentena del dataset en Unity Catalog","Documenta el incidente en el catálogo Purview","Propón el contrato de datos corregido al productor"]},
+  {p:"Microsoft Fabric · Purview · Power BI",t:"Brecha de privacidad en Microsoft Fabric",d:"Un reporte de Power BI expone PII de colaboradores CMI a usuarios sin permisos. El dataset en Fabric OneLake no tenía etiquetas de sensibilidad ni RLS activo. Contén e investiga el incidente.",s:["Identifica los datos expuestos con Purview Information Protection","Revoca accesos temporalmente a los reportes afectados","Aplica etiquetas 'Highly Confidential' al dataset","Configura RLS en el modelo semántico de Power BI","Genera el reporte de incidente para el comité de privacidad"]},
+  {p:"TIBCO EBX · SAP · COUPA",t:"Materiales duplicados en MDM CMI",d:"Durante la carga de materiales de compra en SAP, el proceso de matching en TIBCO EBX no detectó duplicados entre plantas. Resultado: 340 códigos duplicados generando órdenes incorrectas en COUPA.",s:["Analiza registros duplicados en EBX Data Exchange Manager","Ajusta reglas de matching (blocking + scoring)","Define survivorship rules por atributo de negocio","Consolida golden records y propaga a SAP y COUPA","Documenta reglas en el catálogo de metadatos MDM"]},
+  {p:"BigQuery · GCP · Data Contracts",t:"Contrato de datos roto en integración GCP",d:"El equipo de Data Engineering cambió el esquema de una tabla en BigQuery sin notificar a consumidores downstream. Tres pipelines fallaron. Los contratos de datos no estaban formalizados.",s:["Documenta el contrato de datos vigente con esquema correcto","Define proceso de versionado y breaking changes","Notifica a los consumidores registrados del contrato","Implementa Schema Registry para prevención futura","Establece SLA formales con el productor del dato"]}
+];
+
+function showSc(i,btn){
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const s=scs[i];
+  document.getElementById('sc-plat').textContent=s.p;
+  document.getElementById('sc-title').textContent=s.t;
+  document.getElementById('sc-desc').textContent=s.d;
+  document.getElementById('sc-steps').innerHTML=s.s.map((x,n)=>`<div class="sc-step"><div class="step-num">${n+1}</div><span>${x}</span></div>`).join('');
+}
+
+// Nav link active state
+document.querySelectorAll('.nav-link,.snav').forEach(el=>{
+  el.addEventListener('click',function(){
+    this.closest('nav,div').querySelectorAll('.nav-link,.snav').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
